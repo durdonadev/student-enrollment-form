@@ -127,6 +127,38 @@ app.patch("/students/:id", async (req, res) => {
     }
 });
 
+app.delete("/students/:id", async (req, res) => {
+    const {
+        params: { id }
+    } = req;
+
+    try {
+        const student = await prisma.student.findUnique({
+            where: {
+                id: id
+            }
+        });
+        if (!student) {
+            res.status(404).json({
+                message: "Student is not found"
+            });
+            return;
+        }
+
+        await prisma.student.delete({
+            where: {
+                id: id
+            }
+        });
+
+        res.status(203).send();
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log("Server is running on ", PORT);
 });
