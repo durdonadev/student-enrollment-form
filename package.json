@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start:dev": "nodemon index.js",
+        "start:dev": "nodemon src/index.js",
+        "start": "node src/index.js",
         "prisma:g": "npx prisma generate --schema=./src/prisma/schema.prisma",
         "db:p": "npx prisma db push --schema=./src/prisma/schema.prisma"
     },
@@ -16,7 +17,7 @@
     "license": "ISC",
     "type": "module",
     "engines": {
-        "node": "21.0.0"
+        "node": "18.16.0"
     },
     "dependencies": {
         "@prisma/client": "^5.7.1",
