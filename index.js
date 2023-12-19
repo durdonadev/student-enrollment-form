@@ -40,6 +40,26 @@ app.post("/students", async (req, res) => {
     }
 });
 
+app.get("/students", async (req, res) => {
+    try {
+        const students = await prisma.student.findMany({
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                email: true,
+                className: true
+            }
+        });
+
+        res.status(200).json({
+            data: students
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 app.listen(PORT, () => {
     console.log("Server is running on ", PORT);
 });
