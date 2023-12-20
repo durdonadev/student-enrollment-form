@@ -107,7 +107,7 @@ app.patch("/students/:id", async (req, res) => {
             });
             return;
         }
-        await prisma.student.update({
+        const updatedStudent = await prisma.student.update({
             where: {
                 id: id
             },
@@ -119,7 +119,9 @@ app.patch("/students/:id", async (req, res) => {
             }
         });
 
-        res.status(203).send();
+        res.status(201).json({
+            data: updatedStudent
+        });
     } catch (err) {
         res.status(500).json({
             message: err.message
